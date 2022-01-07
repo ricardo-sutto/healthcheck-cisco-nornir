@@ -9,6 +9,7 @@ start_time = datetime.now()
 
 dev_status = {}
 
+#cria objeto 'nr' com as informações presentes no arquivo 'nornir.yaml'
 nr = InitNornir(
     config_file="nornir.yaml", dry_run=True
 )
@@ -22,7 +23,7 @@ nr.inventory.groups['padrao'].username = username
 nr.inventory.groups['padrao'].password = password
 nr.inventory.groups['padrao'].dict()['connection_options']['netmiko']['extras']['secret'] = password
 
-
+#envia paralelamente para todos os dispositivos do objeto o comando 'show version'
 show_ver = nr.run(task=netmiko_send_command,  command_string='show ver', enable=False)
 
 
@@ -38,7 +39,7 @@ for ip in nr.inventory.hosts:
         "ip": ip
     }
 
-    #verificar qual tipo de equipamento e colocar em seu respectivo grupo (ex.: cisco asa)
+    #através do resultado do comando 'show version', verificar qual tipo de equipamento e colocar em seu respectivo grupo (ex.: cisco asa)
     if ('Adaptive Security Appliance' in show_ver[ip].result):
         nr.inventory.hosts[ip].groups = 'asa'
     elif ('NX-OS' in show_ver[ip].result):
