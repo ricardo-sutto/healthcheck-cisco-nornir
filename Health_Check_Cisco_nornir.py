@@ -23,7 +23,7 @@ nr.inventory.groups['padrao'].password = password
 
 show_ver = nr.run(task=netmiko_send_command,  command_string='show ver', enable=False)
 
-
+#COMENTARIO
 for ip in nr.inventory.hosts:
     dev_status[ip] = {
         "timestamps": str(datetime.now()),
