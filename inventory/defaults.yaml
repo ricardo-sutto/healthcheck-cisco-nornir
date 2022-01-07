@@ -1,6 +1,2 @@
 username: cisco
 password: cisco
-connection_options:
-        netmiko:
-            extras:
-                secret: hello
