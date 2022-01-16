@@ -84,4 +84,7 @@ end_time = datetime.now()
 total_time = end_time - start_time
 print('Total Time: {}'.format(total_time))
 
+__author__ = "Ricardo Sutto"
+__author_email__ = "ricardo.sutto@la.logicalis.com"
+__copyright__ = "Copyright (c) 2022 Logicalis Brasil"
 input("Type anything to finish")
