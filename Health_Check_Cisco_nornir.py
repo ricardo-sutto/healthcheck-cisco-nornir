@@ -55,7 +55,7 @@ nexus = nr.filter(F(groups__contains="nxos"))
 
 #cria metodos adicionais nos objetos criados. Como nome, qual comando de verificar a cpu e hostname
 asa.show_cpu, asa.name, asa.show_hostname = "show cpu usage", "asa", "show runn hostname"
-cisco.name, cisco.show_cpu, cisco.show_hostname = "cisco", "show processes cpu | i five", "show runn | i hostname"
+cisco.name, cisco.show_cpu, cisco.show_hostname = "cisco", "show processes cpu | i five", "show runn | i hostname | exclude $"
 nexus.name, nexus.show_cpu, nexus.show_hostname = "nexus", "show processes cpu | i five", "show runn | i hostname"
 
 #coloca os objetos numa lista
@@ -72,7 +72,7 @@ for dev in all_devs:
     for ip in dev.inventory.hosts:
         #manipula as informações tiradas dos comandos e insere na lista dev_status para o resultado final
         try:
-            dev_status[ip]['hostname'] = show_hostname[dev.name][ip].result.split('hostname')[-1].split('\n')[0]
+            dev_status[ip]['hostname'] = show_hostname[dev.name][ip].result.split('hostname ')[-1].split('\n')[0]
             dev_status[ip]['texto'] = "CPU OK: " + show_cpu[dev.name][ip].result.split('5 minutes: ')[-1].split('five minutes: ')[-1].split('\n')[0]
         except Exception as E:
             continue
